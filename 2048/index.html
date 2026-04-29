@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>2048 // ARCADE</title>
+  <link rel="stylesheet" href="/shared/style.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <h1>2048</h1>
+
+    <div class="top-bar">
+      <a class="btn" href="/">← ARCADE</a>
+      <div class="score-panels">
+        <div class="panel">
+          <span class="panel-label">СЧЁТ</span>
+          <span class="panel-val" id="score">0</span>
+        </div>
+        <div class="panel">
+          <span class="panel-label">РЕКОРД</span>
+          <span class="panel-val" id="best">0</span>
+        </div>
+      </div>
+      <button class="btn" id="btnNew">НОВАЯ</button>
+    </div>
+
+    <div class="board-wrap">
+      <div class="grid" id="grid"></div>
+      <div class="overlay" id="overlay">
+        <div class="overlay-title" id="overlayTitle"></div>
+        <div class="overlay-score" id="overlayScore"></div>
+        <div class="overlay-btns">
+          <button class="btn" id="btnContinue">ПРОДОЛЖИТЬ</button>
+          <button class="btn" id="btnRestart">НОВАЯ ИГРА</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint">←↑→↓ · WASD · свайп</div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

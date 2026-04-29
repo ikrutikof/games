@@ -1,0 +1,111 @@
+h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+
+.wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 16px max(32px, env(safe-area-inset-bottom, 16px)) 16px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  justify-content: space-between;
+}
+
+.score-panels {
+  display: flex;
+  gap: 8px;
+}
+
+.board-wrap {
+  position: relative;
+}
+
+.grid {
+  --cell: 90px;
+  --gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, var(--cell));
+  grid-template-rows: repeat(4, var(--cell));
+  gap: var(--gap);
+  padding: var(--gap);
+  background: rgba(0, 245, 255, 0.04);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.08);
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  border: 1px solid rgba(0, 245, 255, 0.1);
+  background: rgba(0, 245, 255, 0.02);
+  color: transparent;
+  transition: background 0.08s, color 0.08s, box-shadow 0.08s;
+  user-select: none;
+}
+
+@keyframes cell-appear {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes cell-merge {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+
+.cell.appear { animation: cell-appear 0.16s ease forwards; }
+.cell.merge  { animation: cell-merge  0.12s ease forwards; }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(5, 5, 16, 0.88);
+  z-index: 20;
+}
+
+.overlay-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: #2a2a4a;
+  text-transform: uppercase;
+}
+
+@media (max-width: 440px) {
+  .grid {
+    --cell: 70px;
+    --gap: 8px;
+  }
+  .top-bar { max-width: 340px; }
+}
+
+@media (max-width: 360px) {
+  .grid {
+    --cell: 60px;
+    --gap: 6px;
+  }
+}

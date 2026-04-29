@@ -23,7 +23,7 @@ h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  max-width: 800px;
+  max-width: 720px;
 }
 
 .game-card {
@@ -38,7 +38,11 @@ h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
   text-decoration: none;
   color: inherit;
   transition: all 0.2s;
-  min-width: 200px;
+  width: 220px;
+  flex: 0 0 220px;
+}
+@media (max-width: 500px) {
+  .game-card { width: calc(50vw - 30px); flex: 0 0 calc(50vw - 30px); }
 }
 .game-card:hover {
   border-color: var(--cyan);
