@@ -1,0 +1,73 @@
+h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
+
+.container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 20px max(40px, env(safe-area-inset-bottom, 20px)) 20px;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: #555a8a;
+  text-transform: uppercase;
+  margin-top: -28px;
+}
+
+.games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 28px 32px;
+  border: 1px solid rgba(0,245,255,0.2);
+  background: rgba(0,245,255,0.03);
+  box-shadow: 0 0 20px rgba(0,245,255,0.06);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+.game-card:hover {
+  border-color: var(--cyan);
+  background: rgba(0,245,255,0.07);
+  box-shadow: 0 0 30px rgba(0,245,255,0.2);
+  transform: translateY(-4px);
+}
+
+.game-icon  { font-size: 2.4rem; }
+.game-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.game-desc {
+  font-size: 0.65rem;
+  color: #555a8a;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.badge-new {
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--magenta);
+  border: 1px solid var(--magenta);
+  padding: 2px 8px;
+  text-transform: uppercase;
+}

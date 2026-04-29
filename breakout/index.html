@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>ЗМЕЙКА // CYBERPUNK</title>
+  <title>АРКАНОИД // CYBERPUNK</title>
   <link rel="stylesheet" href="/shared/style.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrapper">
-  <h1>ЗМЕЙКА // CYBERPUNK</h1>
+  <h1>АРКАНОИД // CYBERPUNK</h1>
 
   <div class="game-area">
     <div class="board-wrap">
-      <canvas id="board" width="600" height="600"></canvas>
+      <canvas id="board" width="400" height="560"></canvas>
       <div class="overlay" id="overlay">
-        <div class="overlay-title" id="overlay-title">ЗМЕЙКА</div>
+        <div class="overlay-title" id="overlay-title">АРКАНОИД</div>
         <div class="overlay-score" id="overlay-score"></div>
         <button class="btn" id="start-btn">[ СТАРТ ]</button>
       </div>
@@ -27,29 +27,23 @@
         <div class="panel-val" id="score">0</div>
       </div>
       <div class="panel">
-        <div class="panel-label">Длина</div>
-        <div class="panel-val" id="length">4</div>
+        <div class="panel-label">Жизни</div>
+        <div class="panel-val" id="lives">3</div>
       </div>
       <div class="panel">
-        <div class="panel-label">Скорость</div>
-        <div class="panel-val" id="speed-val">1</div>
+        <div class="panel-label">Уровень</div>
+        <div class="panel-val" id="level">1</div>
       </div>
       <button class="btn" id="pause-btn">[ ПАУЗА ]</button>
     </div>
   </div>
 
   <div class="mobile-controls">
-    <div class="dpad">
-      <div class="ctrl-btn" id="btn-up">↑</div>
-      <div class="ctrl-row-h">
-        <div class="ctrl-btn" id="btn-left">←</div>
-        <div class="ctrl-btn" id="btn-right">→</div>
-      </div>
-      <div class="ctrl-btn" id="btn-down">↓</div>
-    </div>
+    <div class="ctrl-btn" id="btn-left">←</div>
+    <div class="ctrl-btn" id="btn-right">→</div>
   </div>
 
-  <div class="footer">// WASD ИЛИ СТРЕЛКИ // P — ПАУЗА //</div>
+  <div class="footer">// МЫШЬ ИЛИ ← → ДЛЯ ПЛАТФОРМЫ // P — ПАУЗА //</div>
 </div>
 
 <script src="game.js"></script>
