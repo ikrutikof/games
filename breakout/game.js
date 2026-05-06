@@ -230,19 +230,17 @@ canvas.addEventListener('mousemove', e => {
   paddle.x = Math.max(0, Math.min(CW - PAD_W, (e.clientX - rect.left) * scaleX - PAD_W / 2));
 });
 
-canvas.addEventListener('touchstart', e => {
-  e.preventDefault();
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = CW / rect.width;
-  paddle.x = Math.max(0, Math.min(CW - PAD_W, (e.touches[0].clientX - rect.left) * scaleX - PAD_W / 2));
-}, { passive: false });
-
-canvas.addEventListener('touchmove', e => {
-  e.preventDefault();
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = CW / rect.width;
-  paddle.x = Math.max(0, Math.min(CW - PAD_W, (e.touches[0].clientX - rect.left) * scaleX - PAD_W / 2));
-}, { passive: false });
+// Map full screen X → paddle position so touch works anywhere
+function screenToPaddleX(clientX) {
+  return Math.max(0, Math.min(CW - PAD_W, (clientX / window.innerWidth) * CW - PAD_W / 2));
+}
+document.addEventListener('touchstart', e => {
+  if (e.target.closest('button,a')) return;
+  paddle.x = screenToPaddleX(e.touches[0].clientX);
+}, { passive: true });
+document.addEventListener('touchmove', e => {
+  if (e.touches.length) paddle.x = screenToPaddleX(e.touches[0].clientX);
+}, { passive: true });
 
 document.getElementById('start-btn').addEventListener('click', startGame);
 document.getElementById('pause-btn').addEventListener('click', togglePause);

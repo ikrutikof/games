@@ -254,14 +254,13 @@ addBtn('btn-down',   () => { if (!tryMove(0, 1)) lockPiece(); });
 addBtn('btn-rotate', () => tryRotate());
 addBtn('btn-drop',   () => hardDrop());
 
-// Canvas swipe: left/right = move, swipe-down = hard drop, swipe-up or tap = rotate
+// Full-screen swipe: ←→ move, ↓ hard drop, ↑ or tap = rotate (skip buttons)
 let swipeOrigin = null;
-boardCanvas.addEventListener('touchstart', e => {
-  e.preventDefault();
+document.addEventListener('touchstart', e => {
+  if (e.target.closest('button,a,.ctrl-btn')) return;
   swipeOrigin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-}, { passive: false });
-boardCanvas.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
-boardCanvas.addEventListener('touchend', e => {
+}, { passive: true });
+document.addEventListener('touchend', e => {
   if (!swipeOrigin || gameOver || paused) return;
   const dx = e.changedTouches[0].clientX - swipeOrigin.x;
   const dy = e.changedTouches[0].clientY - swipeOrigin.y;
@@ -271,7 +270,7 @@ boardCanvas.addEventListener('touchend', e => {
   if (adx > ady) { tryMove(dx > 0 ? 1 : -1, 0); draw(); }
   else if (dy > 0) { hardDrop(); draw(); }
   else { tryRotate(); draw(); }
-}, { passive: false });
+}, { passive: true });
 
 ctx.fillStyle = 'rgba(5,5,16,0.95)';
 ctx.fillRect(0, 0, boardCanvas.width, boardCanvas.height);
