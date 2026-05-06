@@ -1,0 +1,139 @@
+h1 { font-size: clamp(1.4rem, 5vw, 2.4rem); }
+
+.hud {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.game-wrap {
+  position: relative;
+}
+
+.mole-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 16px;
+  background: rgba(0,245,255,0.02);
+  border: 1px solid rgba(0,245,255,0.1);
+  touch-action: none;
+}
+
+.hole {
+  width: clamp(88px, 22vw, 120px);
+  height: clamp(88px, 22vw, 120px);
+  border-radius: 50%;
+  background: rgba(0,245,255,0.04);
+  border: 2px solid rgba(0,245,255,0.12);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.hole.up {
+  background: rgba(0,245,255,0.1);
+  border-color: var(--cyan);
+  box-shadow: 0 0 18px rgba(0,245,255,0.35), inset 0 0 16px rgba(0,245,255,0.08);
+}
+
+.hole.golden.up {
+  background: rgba(245,230,66,0.12);
+  border-color: var(--yellow);
+  box-shadow: 0 0 24px rgba(245,230,66,0.5), inset 0 0 16px rgba(245,230,66,0.08);
+}
+
+.hole.hit {
+  border-color: var(--magenta);
+  box-shadow: 0 0 30px rgba(255,0,160,0.7);
+  animation: hit-flash 0.25s ease;
+}
+
+@keyframes hit-flash {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.13); }
+  100% { transform: scale(1); }
+}
+
+/* The mole that pops up */
+.mole {
+  position: absolute;
+  bottom: -110%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  line-height: 1;
+  transition: bottom 0.13s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.hole.up .mole {
+  bottom: 12%;
+}
+
+.mole-face {
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  color: var(--cyan);
+  text-shadow: 0 0 12px var(--cyan), 0 0 28px rgba(0,245,255,0.5);
+  display: block;
+  transition: color 0.1s, text-shadow 0.1s;
+}
+
+.hole.golden .mole-face {
+  color: var(--yellow);
+  text-shadow: 0 0 14px var(--yellow), 0 0 32px rgba(245,230,66,0.6);
+}
+
+.hole.hit .mole-face {
+  color: var(--magenta);
+  text-shadow: 0 0 14px var(--magenta);
+}
+
+/* Floating score popup */
+.point-popup {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+  animation: popup-rise 0.65s ease-out forwards;
+}
+.point-popup.normal { color: var(--cyan);    text-shadow: 0 0 8px var(--cyan); }
+.point-popup.golden { color: var(--yellow);  text-shadow: 0 0 10px var(--yellow); }
+
+@keyframes popup-rise {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-44px); }
+}
+
+/* Timer warning */
+.warn {
+  color: var(--magenta) !important;
+  animation: warn-pulse 0.45s ease-in-out infinite alternate;
+}
+@keyframes warn-pulse {
+  from { text-shadow: 0 0 8px var(--magenta); }
+  to   { text-shadow: 0 0 22px var(--magenta), 0 0 44px var(--magenta); }
+}
+
+/* overlay override for initial hint text */
+.overlay-score {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 0 20px;
+}
+
+@media (max-width: 400px) {
+  .mole-grid { gap: 10px; padding: 12px; }
+  .hud { gap: 10px; }
+}

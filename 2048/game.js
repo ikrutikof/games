@@ -193,14 +193,21 @@ document.addEventListener('keydown', e => {
   if (dir) { e.preventDefault(); move(dir); }
 });
 
-// Touch / swipe
+// Touch / swipe — scoped to board so it doesn't block page scroll elsewhere
 let touchOrigin = null;
-document.addEventListener('touchstart', e => {
+const $boardWrap = document.querySelector('.board-wrap');
+
+$boardWrap.addEventListener('touchstart', e => {
+  e.preventDefault();
   const t = e.touches[0];
   touchOrigin = { x: t.clientX, y: t.clientY };
-}, { passive: true });
+}, { passive: false });
 
-document.addEventListener('touchend', e => {
+$boardWrap.addEventListener('touchmove', e => {
+  e.preventDefault();
+}, { passive: false });
+
+$boardWrap.addEventListener('touchend', e => {
   if (!touchOrigin) return;
   const dx = e.changedTouches[0].clientX - touchOrigin.x;
   const dy = e.changedTouches[0].clientY - touchOrigin.y;
@@ -208,7 +215,7 @@ document.addEventListener('touchend', e => {
   if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
   if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 'right' : 'left');
   else move(dy > 0 ? 'down' : 'up');
-}, { passive: true });
+}, { passive: false });
 
 // Buttons
 document.getElementById('btnNew').addEventListener('click', init);

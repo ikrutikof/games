@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ШЛЁП // CYBERPUNK</title>
+  <link rel="stylesheet" href="/shared/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+  <div class="nav-bar">
+    <a class="btn" href="/">← АРКАДА</a>
+    <span class="nav-breadcrumb">// ARCADE // ШЛЁП</span>
+  </div>
+  <h1>ШЛЁП // МУТАНТ</h1>
+
+  <div class="hud">
+    <div class="panel">
+      <div class="panel-label">Счёт</div>
+      <div class="panel-val" id="score">0</div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">Время</div>
+      <div class="panel-val" id="timer">60</div>
+    </div>
+    <div class="panel">
+      <div class="panel-label">Рекорд</div>
+      <div class="panel-val" id="best">0</div>
+    </div>
+  </div>
+
+  <div class="game-wrap">
+    <div class="mole-grid" id="grid"></div>
+    <div class="overlay" id="overlay">
+      <div class="overlay-title" id="overlay-title">ШЛЁП МУТАНТА</div>
+      <div class="overlay-score" id="overlay-score">тапай по мутантам пока они наверху</div>
+      <button class="btn" id="start-btn">[ СТАРТ ]</button>
+    </div>
+  </div>
+
+  <div class="footer">// ТАПНИ МУТАНТА // ЗОЛОТОЙ = × 5 //</div>
+</div>
+
+<script src="game.js"></script>
+<script src="/shared/arcade.js"></script>
+</body>
+</html>

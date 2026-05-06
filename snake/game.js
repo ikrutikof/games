@@ -193,5 +193,22 @@ addDirBtn('btn-down',  DIR.DOWN);
 addDirBtn('btn-left',  DIR.LEFT);
 addDirBtn('btn-right', DIR.RIGHT);
 
+// Canvas swipe gestures (alternative to D-pad)
+let swipeOrigin = null;
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  swipeOrigin = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+}, { passive: false });
+canvas.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: false });
+canvas.addEventListener('touchend', e => {
+  if (!swipeOrigin) return;
+  const dx = e.changedTouches[0].clientX - swipeOrigin.x;
+  const dy = e.changedTouches[0].clientY - swipeOrigin.y;
+  swipeOrigin = null;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
+  if (Math.abs(dx) > Math.abs(dy)) setDir(dx > 0 ? DIR.RIGHT : DIR.LEFT);
+  else setDir(dy > 0 ? DIR.DOWN : DIR.UP);
+}, { passive: false });
+
 ctx.fillStyle = '#050510';
 ctx.fillRect(0, 0, CW, CH);

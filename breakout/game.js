@@ -230,6 +230,13 @@ canvas.addEventListener('mousemove', e => {
   paddle.x = Math.max(0, Math.min(CW - PAD_W, (e.clientX - rect.left) * scaleX - PAD_W / 2));
 });
 
+canvas.addEventListener('touchstart', e => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = CW / rect.width;
+  paddle.x = Math.max(0, Math.min(CW - PAD_W, (e.touches[0].clientX - rect.left) * scaleX - PAD_W / 2));
+}, { passive: false });
+
 canvas.addEventListener('touchmove', e => {
   e.preventDefault();
   const rect = canvas.getBoundingClientRect();
