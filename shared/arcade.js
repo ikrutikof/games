@@ -1,6 +1,13 @@
 (function () {
   'use strict';
 
+  // ── Block iOS page scroll on game pages ─────────────────────
+  // On game pages touchmove on document would scroll the page even when
+  // touch-action:none is set on child elements. Prevent it entirely.
+  if (!document.querySelector('.games-grid')) {
+    document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  }
+
   // ── Corner bracket decorations (all pages) ──────────────────
   ['tl', 'tr', 'bl', 'br'].forEach(pos => {
     const el = document.createElement('div');
