@@ -8,9 +8,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<canvas id="particles"></canvas>
   <div class="container">
     <h1>// ARCADE //</h1>
     <p class="subtitle">выбери игру</p>
+    <div class="live-indicator">
+      <div class="live-dot"></div>
+      <span><span class="live-count">—</span>&nbsp;онлайн</span>
+    </div>
 
     <div class="games-grid">
       <a class="game-card" href="/tictactoe/">
@@ -47,5 +52,6 @@
 
     <div class="footer">// БОЛЬШЕ ИГР СКОРО //</div>
   </div>
+<script src="/shared/arcade.js"></script>
 </body>
 </html>

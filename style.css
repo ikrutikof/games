@@ -1,5 +1,57 @@
 h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
 
+/* Particle canvas */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Live indicator */
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.55rem;
+  color: #555a8a;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: -28px;
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--magenta);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--magenta);
+  animation: live-blink 1.4s ease-in-out infinite;
+}
+@keyframes live-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--magenta); }
+  50%       { opacity: 0.15; box-shadow: none; }
+}
+.live-count {
+  color: var(--cyan);
+  font-weight: bold;
+}
+
+/* Ripple click effect on cards */
+.game-card { overflow: hidden; }
+.ripple {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(0,245,255,0.35);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-expand 0.7s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes ripple-expand {
+  to { transform: translate(-50%, -50%) scale(22); opacity: 0; }
+}
+
 .container {
   position: relative;
   z-index: 10;
