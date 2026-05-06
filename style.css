@@ -134,3 +134,73 @@ h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
   padding: 2px 8px;
   text-transform: uppercase;
 }
+
+/* ── Terminal widget ────────────────────────────────────────── */
+.terminal {
+  width: 100%;
+  max-width: 580px;
+  border: 1px solid rgba(0,245,255,0.25);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  font-family: 'Jura', monospace;
+  font-size: 0.8rem;
+}
+.term-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(0,245,255,0.15);
+  background: rgba(0,245,255,0.05);
+}
+.term-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--cyan);
+}
+.term-hint {
+  font-size: 0.6rem;
+  color: #444;
+  letter-spacing: 0.08em;
+}
+.term-output {
+  min-height: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,245,255,0.2) transparent;
+}
+.term-line { line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.term-line.cmd  { color: var(--cyan); }
+.term-line.out  { color: rgba(0,245,255,0.65); }
+.term-line.err  { color: var(--magenta); }
+.term-line.info { color: var(--yellow); }
+.term-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(0,245,255,0.12);
+}
+.term-prompt {
+  color: var(--magenta);
+  font-size: 0.7rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.term-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--cyan);
+  font-family: inherit;
+  font-size: inherit;
+  flex: 1;
+  caret-color: var(--cyan);
+}
+.term-input::placeholder { color: #333; }

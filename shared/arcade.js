@@ -26,6 +26,7 @@
 
   function konamiActivate() {
     if (document.querySelector('.konami-msg')) return;
+    if (window.Achievements) Achievements.unlock('konami');
     const el = document.createElement('div');
     el.className = 'konami-msg';
     el.innerHTML = '// CHEAT CODE //<br><span>▲▲▼▼◄►◄► BA</span>';
@@ -36,6 +37,58 @@
       document.body.classList.remove('konami-active');
       setTimeout(() => el.remove(), 600);
     }, 2800);
+  }
+
+  // ── Fullscreen button (game pages only) ────────────────────
+  if (!document.querySelector('.games-grid')) {
+    const nav = document.querySelector('.nav-bar');
+    if (nav && document.fullscreenEnabled) {
+      const fsBtn = document.createElement('button');
+      fsBtn.className = 'nav-btn fs-btn';
+      fsBtn.textContent = '[ ⛶ ]';
+      fsBtn.title = 'Fullscreen';
+      fsBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+          fsBtn.textContent = '[ ✕ ]';
+        } else {
+          document.exitFullscreen();
+          fsBtn.textContent = '[ ⛶ ]';
+        }
+      });
+      document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) fsBtn.textContent = '[ ⛶ ]';
+      });
+      nav.appendChild(fsBtn);
+    }
+  }
+
+  // ── Cursor trail (desktop, catalog + game pages) ────────────
+  if (!('ontouchstart' in window)) {
+    const trail = [];
+    const TRAIL_N = 12;
+    for (let i = 0; i < TRAIL_N; i++) {
+      const d = document.createElement('div');
+      d.className = 'cursor-trail';
+      d.style.opacity = (1 - i / TRAIL_N) * 0.6;
+      d.style.width = d.style.height = (6 - i * 0.35) + 'px';
+      document.body.appendChild(d);
+      trail.push({ el: d, x: -100, y: -100 });
+    }
+    let mx = -100, my = -100;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animTrail() {
+      let px = mx, py = my;
+      trail.forEach((t, i) => {
+        const nx = px + (t.x - px) * 0.4;
+        const ny = py + (t.y - py) * 0.4;
+        t.x = i === 0 ? mx : px;
+        t.y = i === 0 ? my : py;
+        t.el.style.transform = `translate(${t.x - 3}px, ${t.y - 3}px)`;
+        px = t.x; py = t.y;
+      });
+      requestAnimationFrame(animTrail);
+    })();
   }
 
   // ── Catalog-only features ───────────────────────────────────
@@ -87,6 +140,105 @@
       setTimeout(() => s.remove(), 700);
     });
   });
+
+  // ── Terminal widget ─────────────────────────────────────────
+  const termInput  = document.getElementById('term-input');
+  const termOutput = document.getElementById('term-output');
+
+  const TERM_CMDS = {
+    help: () => [
+      { t: 'info', v: 'Доступные команды:' },
+      { t: 'out',  v: '  games       — список игр' },
+      { t: 'out',  v: '  scores      — твои рекорды' },
+      { t: 'out',  v: '  achievements — разблокированные ачивки' },
+      { t: 'out',  v: '  stats       — статистика сессий' },
+      { t: 'out',  v: '  clear       — очистить терминал' },
+      { t: 'out',  v: '  konami      — ??'},
+    ],
+    games: () => [
+      { t: 'info', v: '[ ИГРЫ ]' },
+      { t: 'out',  v: '  /tictactoe/ — Крестики-нолики' },
+      { t: 'out',  v: '  /tetris/    — Тетрис' },
+      { t: 'out',  v: '  /snake/     — Змейка' },
+      { t: 'out',  v: '  /breakout/  — Арканоид' },
+      { t: 'out',  v: '  /2048/      — 2048' },
+      { t: 'out',  v: '  /mole/      — Шлёп' },
+    ],
+    scores: () => {
+      const keys = [
+        ['bestSnake','Змейка'], ['bestTetris','Тетрис'],
+        ['bestBreakout','Арканоид'], ['best2048','2048'],
+        ['bestMole','Шлёп'],
+      ];
+      const lines = [{ t: 'info', v: '[ РЕКОРДЫ ]' }];
+      keys.forEach(([k, name]) => {
+        const v = localStorage.getItem(k);
+        lines.push({ t: 'out', v: `  ${name.padEnd(12)} ${v ? v : '—'}` });
+      });
+      return lines;
+    },
+    achievements: () => {
+      if (!window.Achievements) return [{ t: 'err', v: 'Achievements не загружены.' }];
+      const all = Achievements.getAll();
+      const defs = Achievements.getDefs();
+      const lines = [{ t: 'info', v: `[ АЧИВКИ: ${Object.values(all).filter(Boolean).length} / ${Object.keys(defs).length} ]` }];
+      Object.entries(defs).forEach(([id, def]) => {
+        const unlocked = !!all[id];
+        lines.push({ t: unlocked ? 'out' : 'err', v: `  ${unlocked ? '✓' : '?'} ${def.name}` });
+      });
+      return lines;
+    },
+    stats: () => {
+      const keys = [
+        ['plays_tictactoe','Крестики'], ['plays_snake','Змейка'],
+        ['plays_tetris','Тетрис'], ['plays_breakout','Арканоид'],
+        ['plays_2048','2048'], ['plays_mole','Шлёп'],
+      ];
+      const lines = [{ t: 'info', v: '[ СЕССИИ ]' }];
+      let total = 0;
+      keys.forEach(([k, name]) => {
+        const v = parseInt(localStorage.getItem(k) || '0');
+        total += v;
+        lines.push({ t: 'out', v: `  ${name.padEnd(12)} ${v}` });
+      });
+      lines.push({ t: 'info', v: `  Итого: ${total} сессий` });
+      return lines;
+    },
+    clear: () => { termOutput.innerHTML = ''; return []; },
+    konami: () => {
+      setTimeout(() => konamiActivate && konamiActivate(), 100);
+      return [{ t: 'info', v: '// активируется... //' }];
+    },
+  };
+
+  function termPrint(lines) {
+    lines.forEach(({ t, v }) => {
+      const el = document.createElement('div');
+      el.className = `term-line ${t}`;
+      el.textContent = v;
+      termOutput.appendChild(el);
+    });
+    termOutput.scrollTop = termOutput.scrollHeight;
+  }
+
+  if (termInput) {
+    termInput.addEventListener('keydown', e => {
+      if (e.key !== 'Enter') return;
+      const raw = termInput.value.trim();
+      termInput.value = '';
+      if (!raw) return;
+      termPrint([{ t: 'cmd', v: `$ ${raw}` }]);
+      const cmd = raw.toLowerCase().split(/\s+/)[0];
+      const fn = TERM_CMDS[cmd];
+      if (fn) {
+        const out = fn();
+        if (out && out.length) termPrint(out);
+      } else {
+        termPrint([{ t: 'err', v: `Команда не найдена: ${raw}. Введи "help".` }]);
+      }
+    });
+    termPrint([{ t: 'info', v: '// ARCADE TERMINAL v1.0 // введи "help"' }]);
+  }
 
   // ── Particle network canvas ─────────────────────────────────
   const canvas = document.getElementById('particles');
@@ -161,4 +313,64 @@
 
     requestAnimationFrame(frame);
   })();
+
+  // ── Matrix rain screensaver (idle 30s on catalog) ───────────
+  const ssCanvas = document.createElement('canvas');
+  ssCanvas.id = 'screensaver';
+  ssCanvas.style.cssText = 'position:fixed;inset:0;z-index:8000;display:none;cursor:none;';
+  document.body.appendChild(ssCanvas);
+  const sctx = ssCanvas.getContext('2d');
+  let ssActive = false, ssAnim = null, idleTimer = null;
+  const IDLE_MS = 30000;
+  const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMN0123456789';
+
+  function ssResize() {
+    ssCanvas.width  = window.innerWidth;
+    ssCanvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', ssResize);
+  ssResize();
+
+  function startScreensaver() {
+    if (ssActive) return;
+    ssActive = true;
+    ssCanvas.style.display = 'block';
+    const cols = Math.floor(ssCanvas.width / 16);
+    const drops = Array(cols).fill(1);
+    function ssFrame() {
+      sctx.fillStyle = 'rgba(5,5,16,0.08)';
+      sctx.fillRect(0, 0, ssCanvas.width, ssCanvas.height);
+      sctx.font = '14px Jura, monospace';
+      drops.forEach((y, i) => {
+        const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
+        const bright = Math.random() > 0.05;
+        sctx.fillStyle = bright ? '#00f5ff' : 'rgba(0,245,255,0.4)';
+        sctx.fillText(ch, i * 16, y * 16);
+        if (y * 16 > ssCanvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+      ssAnim = requestAnimationFrame(ssFrame);
+    }
+    ssFrame();
+  }
+
+  function stopScreensaver() {
+    if (!ssActive) return;
+    ssActive = false;
+    ssCanvas.style.display = 'none';
+    cancelAnimationFrame(ssAnim);
+  }
+
+  function resetIdle() {
+    clearTimeout(idleTimer);
+    stopScreensaver();
+    idleTimer = setTimeout(startScreensaver, IDLE_MS);
+  }
+
+  ['mousemove','keydown','touchstart','click'].forEach(ev =>
+    document.addEventListener(ev, resetIdle, { passive: true })
+  );
+  ssCanvas.addEventListener('click', stopScreensaver);
+  ssCanvas.addEventListener('touchstart', stopScreensaver, { passive: true });
+  resetIdle();
 })();

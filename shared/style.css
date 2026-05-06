@@ -332,3 +332,22 @@ canvas#board {
   66%  { color: var(--yellow);  text-shadow: 0 0 20px var(--yellow); }
   100% { color: var(--cyan);    text-shadow: 0 0 20px var(--cyan); }
 }
+
+/* ── Cursor trail ────────────────────────────────────────────── */
+.cursor-trail {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 6px var(--cyan);
+  pointer-events: none;
+  z-index: 9000;
+  will-change: transform;
+}
+
+/* ── Fullscreen button ──────────────────────────────────────── */
+.fs-btn {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+}

@@ -62,6 +62,18 @@
       <a class="btn" href="/profile/">[ ПРОФИЛЬ ]</a>
       <div class="footer">// БОЛЬШЕ ИГР СКОРО //</div>
     </div>
+
+    <div class="terminal" id="terminal">
+      <div class="term-header">
+        <span class="term-title">// TERMINAL //</span>
+        <span class="term-hint">введи &quot;help&quot;</span>
+      </div>
+      <div class="term-output" id="term-output"></div>
+      <div class="term-input-row">
+        <span class="term-prompt">arcade@coldline:~$</span>
+        <input class="term-input" id="term-input" type="text" autocomplete="off" spellcheck="false" placeholder="команда...">
+      </div>
+    </div>
   </div>
 <script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
 <script src="/shared/arcade.js"></script>
