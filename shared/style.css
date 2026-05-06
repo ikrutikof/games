@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Jura:wght@400;600;700&display=swap');
 
 :root {
   --cyan:    #00f5ff;
@@ -12,7 +12,7 @@
 body {
   background: var(--dark);
   color: var(--cyan);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Jura', sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ body::after {
 }
 
 h1 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-weight: 900;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -73,7 +73,7 @@ h1 {
 }
 
 .btn {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -131,7 +131,7 @@ canvas#board {
 }
 
 .panel-label {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.5rem;
   letter-spacing: 0.15em;
   color: #555a8a;
@@ -139,7 +139,7 @@ canvas#board {
 }
 
 .panel-val {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--cyan);
@@ -159,7 +159,7 @@ canvas#board {
 }
 
 .overlay-title {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0.2em;
@@ -180,7 +180,7 @@ canvas#board {
 }
 
 .ctrl-btn {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   color: var(--cyan);
   background: rgba(0,245,255,0.05);
   border: 1px solid rgba(0,245,255,0.3);
@@ -214,7 +214,7 @@ canvas#board {
   white-space: nowrap;
 }
 .nav-breadcrumb {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.48rem;
   color: #2a2a4a;
   letter-spacing: 0.12em;
@@ -259,7 +259,7 @@ canvas#board {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: clamp(0.9rem, 3vw, 1.2rem);
   font-weight: 900;
   letter-spacing: 0.2em;
