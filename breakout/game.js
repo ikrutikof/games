@@ -250,7 +250,7 @@ document.addEventListener('touchmove', e => {
   if (e.touches.length) paddle.x = screenToPaddleX(e.touches[0].clientX);
 }, { passive: true });
 
-document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); localStorage.setItem('', (+localStorage.getItem('') || 0) + 1); startGame(); });
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 function holdPaddle(id, dir) {

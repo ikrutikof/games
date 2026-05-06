@@ -221,8 +221,8 @@ document.addEventListener('touchend', e => {
 }, { passive: true });
 
 // Buttons
-document.getElementById('btnNew').addEventListener('click', () => { if (window.SFX) SFX.play('start'); init(); });
-document.getElementById('btnRestart').addEventListener('click', () => { hideOverlay(); if (window.SFX) SFX.play('start'); init(); });
+document.getElementById('btnNew').addEventListener('click', () => { if (window.SFX) SFX.play('start'); localStorage.setItem('plays_2048', (+localStorage.getItem('plays_2048') || 0) + 1); init(); });
+document.getElementById('btnRestart').addEventListener('click', () => { hideOverlay(); if (window.SFX) SFX.play('start'); localStorage.setItem('plays_2048', (+localStorage.getItem('plays_2048') || 0) + 1); init(); });
 $btnContinue.addEventListener('click', () => { keepPlaying = true; hideOverlay(); });
 
 init();

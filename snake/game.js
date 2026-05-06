@@ -187,7 +187,12 @@ document.addEventListener('keydown', e => {
   if (e.key === 'p' || e.key === 'P') togglePause();
 });
 
-document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
+document.getElementById('start-btn').addEventListener('click', () => {
+  if (window.SFX) SFX.play('start');
+  const k = 'plays_snake';
+  localStorage.setItem(k, (+localStorage.getItem(k) || 0) + 1);
+  startGame();
+});
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 function addDirBtn(id, d) {

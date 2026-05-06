@@ -1,0 +1,127 @@
+h1 { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+
+.nick-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.nick-label {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.5rem;
+  color: #555a8a;
+  letter-spacing: 0.15em;
+}
+.nick-row { display: flex; gap: 10px; align-items: center; }
+.nick-input {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  background: rgba(0,245,255,0.04);
+  border: 1px solid rgba(0,245,255,0.3);
+  padding: 8px 14px;
+  width: 180px;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  caret-color: var(--cyan);
+}
+.nick-input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0,245,255,0.2); }
+.nick-input::placeholder { color: #2a2a4a; }
+
+/* Stats */
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  max-width: 680px;
+}
+.stat-card {
+  border: 1px solid rgba(0,245,255,0.18);
+  background: rgba(0,245,255,0.03);
+  padding: 14px 18px;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { border-color: var(--cyan); box-shadow: 0 0 16px rgba(0,245,255,0.15); }
+.stat-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.stat-name {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.72rem;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.stat-row { display: flex; justify-content: space-between; align-items: baseline; }
+.stat-label { font-size: 0.55rem; color: #555a8a; text-transform: uppercase; letter-spacing: 0.08em; }
+.stat-val { font-family: 'Russo One', sans-serif; font-size: 0.9rem; color: var(--cyan); }
+
+/* Achievements */
+.section-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.65rem;
+  color: var(--yellow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(245,230,66,0.4);
+  margin-top: 8px;
+}
+.ach-summary {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.55rem;
+  color: #555a8a;
+  letter-spacing: 0.12em;
+  margin-bottom: -8px;
+}
+.ach-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  max-width: 680px;
+}
+.ach-card {
+  border: 1px solid rgba(0,245,255,0.12);
+  background: rgba(0,245,255,0.02);
+  padding: 12px 14px;
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  opacity: 0.45;
+  transition: opacity 0.2s;
+}
+.ach-card.done {
+  border-color: rgba(245,230,66,0.35);
+  background: rgba(245,230,66,0.04);
+  box-shadow: 0 0 12px rgba(245,230,66,0.08);
+  opacity: 1;
+}
+.ach-card-icon { font-size: 1.8rem; }
+.ach-card-name {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.62rem;
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.ach-card.done .ach-card-name { text-shadow: 0 0 8px rgba(245,230,66,0.4); }
+.ach-card-desc { font-size: 0.54rem; color: #555a8a; }
+.ach-card-date { font-size: 0.48rem; color: #3a3a5a; margin-top: 2px; }
+
+@media (max-width: 420px) {
+  .stat-card { width: calc(50vw - 30px); }
+  .ach-card  { width: calc(50vw - 30px); }
+}

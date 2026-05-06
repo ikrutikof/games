@@ -237,7 +237,7 @@ function togglePause() {
   }
 }
 
-document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); localStorage.setItem('', (+localStorage.getItem('') || 0) + 1); startGame(); });
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 document.addEventListener('keydown', e => {

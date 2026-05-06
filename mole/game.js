@@ -157,4 +157,4 @@ function endGame() {
 }
 
 buildGrid();
-document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); localStorage.setItem('plays_mole', (+localStorage.getItem('plays_mole') || 0) + 1); startGame(); });

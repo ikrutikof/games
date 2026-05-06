@@ -68,7 +68,7 @@ document.getElementById('diff-hard').addEventListener('click', () => {
   init();
 });
 
-document.getElementById('restart').addEventListener('click', init);
+document.getElementById('restart').addEventListener('click', () => { localStorage.setItem('plays_tictactoe', (+localStorage.getItem('plays_tictactoe') || 0) + 1); init(); });
 
 function init() {
   board   = Array(SIZE * SIZE).fill(null);
