@@ -129,6 +129,8 @@ function placeMove(i, player) {
   const cell = boardEl.querySelector(`[data-i="${i}"]`);
   cell.textContent = player;
   cell.classList.add('taken', player.toLowerCase(), 'pop');
+  if (window.SFX) SFX.play('place');
+  if (navigator.vibrate) navigator.vibrate(18);
 }
 
 function finishTurn() {
@@ -141,10 +143,14 @@ function finishTurn() {
       boardEl.querySelector(`[data-i="${idx}"]`).classList.add('win-cell');
     });
     setStatus('win', result.winner);
+    if (window.SFX) SFX.play('win');
+    if (navigator.vibrate) navigator.vibrate([50, 30, 100]);
+    if (window.Achievements && vsAI && hardMode && result.winner === 'X') Achievements.unlock('tictactoe_ai_hard');
     return true;
   }
   if (board.every(Boolean)) {
     over = true; scores.D++; updateScores();
+    if (window.SFX) SFX.play('draw');
     setStatus('draw'); return true;
   }
   return false;

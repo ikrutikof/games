@@ -198,6 +198,41 @@ canvas#board {
   .mobile-controls { display: flex; }
 }
 
+/* ── Achievement toast ──────────────────────────────────────── */
+.ach-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 16px;
+  z-index: 9998;
+  background: rgba(5,5,16,0.96);
+  border: 1px solid var(--yellow);
+  box-shadow: 0 0 24px rgba(245,230,66,0.3), inset 0 0 20px rgba(245,230,66,0.03);
+  padding: 12px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  max-width: 280px;
+  transform: translateX(calc(100% + 20px));
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.ach-toast.visible { transform: translateX(0); }
+.ach-icon { font-size: 2rem; flex-shrink: 0; }
+.ach-body { display: flex; flex-direction: column; gap: 2px; }
+.ach-label {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.42rem;
+  color: var(--yellow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.ach-name {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.78rem;
+  color: var(--yellow);
+  text-shadow: 0 0 8px rgba(245,230,66,0.5);
+}
+.ach-desc { font-size: 0.6rem; color: #666; margin-top: 1px; }
+
 /* ── Nav bar (back to catalog) ─────────────────────────────── */
 .nav-bar {
   display: flex;

@@ -105,16 +105,25 @@ function move(dir) {
     localStorage.setItem('best2048', bestScore);
   }
 
+  if (window.SFX) { totalPts > 0 ? SFX.play('merge') : SFX.play('slide'); }
+  if (totalPts > 0 && navigator.vibrate) navigator.vibrate(20);
+
   lastNewIdx = -1;
   addTile();
   render();
 
   if (!won && board.includes(2048)) {
     won = true;
+    if (window.SFX) SFX.play('reach2048');
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50, 30, 100]);
+    if (window.Achievements) Achievements.unlock('game2048_win');
     showOverlay('ТЫ ВЫИГРАЛ!', score, true);
     return;
   }
+  if (!won && board.includes(1024) && window.Achievements) Achievements.unlock('game2048_1024');
   if (isGameOver()) {
+    if (window.SFX) SFX.play('gameOver');
+    if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
     showOverlay('GAME OVER', score, false);
   }
 }
@@ -212,8 +221,8 @@ document.addEventListener('touchend', e => {
 }, { passive: true });
 
 // Buttons
-document.getElementById('btnNew').addEventListener('click', init);
-document.getElementById('btnRestart').addEventListener('click', () => { hideOverlay(); init(); });
+document.getElementById('btnNew').addEventListener('click', () => { if (window.SFX) SFX.play('start'); init(); });
+document.getElementById('btnRestart').addEventListener('click', () => { hideOverlay(); if (window.SFX) SFX.play('start'); init(); });
 $btnContinue.addEventListener('click', () => { keepPlaying = true; hideOverlay(); });
 
 init();

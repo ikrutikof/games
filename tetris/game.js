@@ -63,6 +63,8 @@ function lockPiece() {
       if (row < 0) { endGame(); return; }
       board[row][piece.x + c] = piece.color;
     }
+  if (window.SFX) SFX.play('lock');
+  if (navigator.vibrate) navigator.vibrate(15);
   clearLines();
   spawnPiece();
 }
@@ -84,6 +86,10 @@ function clearLines() {
   document.getElementById('score').textContent = score;
   document.getElementById('lines').textContent = linesCount;
   document.getElementById('level').textContent = level;
+  if (window.SFX) SFX.play(cleared === 4 ? 'clear4' : 'clear1');
+  if (navigator.vibrate) navigator.vibrate(cleared === 4 ? [40, 20, 40, 20, 60] : [30]);
+  if (window.Achievements && cleared === 4) Achievements.unlock('tetris_4lines');
+  if (window.Achievements && level >= 5) Achievements.unlock('tetris_level5');
 }
 
 function dropInterval() {
@@ -213,6 +219,8 @@ function startGame() {
 function endGame() {
   gameOver = true;
   cancelAnimationFrame(animId);
+  if (window.SFX) SFX.play('gameOver');
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
   const ov = document.getElementById('overlay');
   document.getElementById('overlay-title').textContent = 'ИГРА ОКОНЧЕНА';
   document.getElementById('start-btn').textContent = '[ ЗАНОВО ]';
@@ -229,16 +237,16 @@ function togglePause() {
   }
 }
 
-document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 document.addEventListener('keydown', e => {
   if (gameOver || paused) return;
-  if (e.key === 'ArrowLeft')  { e.preventDefault(); tryMove(-1, 0); draw(); }
-  if (e.key === 'ArrowRight') { e.preventDefault(); tryMove(1, 0);  draw(); }
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); if(tryMove(-1,0)){if(window.SFX)SFX.play('move');} draw(); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); if(tryMove(1,0)){if(window.SFX)SFX.play('move');}  draw(); }
   if (e.key === 'ArrowDown')  { e.preventDefault(); if (!tryMove(0, 1)) lockPiece(); draw(); }
-  if (e.key === 'ArrowUp')    { e.preventDefault(); tryRotate(); draw(); }
-  if (e.key === ' ')          { e.preventDefault(); hardDrop(); draw(); }
+  if (e.key === 'ArrowUp')    { e.preventDefault(); tryRotate(); if(window.SFX)SFX.play('rotate'); draw(); }
+  if (e.key === ' ')          { e.preventDefault(); if(window.SFX)SFX.play('hardDrop'); hardDrop(); draw(); }
   if (e.key === 'p' || e.key === 'P') togglePause();
 });
 

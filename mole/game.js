@@ -112,6 +112,13 @@ function whack(idx) {
   const pts      = isGolden ? POINTS_GOLDEN : POINTS_NORMAL;
   score += pts;
 
+  if (window.SFX) SFX.play(isGolden ? 'goldenWhack' : 'whack');
+  if (navigator.vibrate) navigator.vibrate(isGolden ? [20, 10, 30] : 25);
+  if (window.Achievements) {
+    if (score >= 50) Achievements.unlock('mole_50');
+    if (isGolden) Achievements.unlock('mole_golden');
+  }
+
   if (score > bestScore) {
     bestScore = score;
     localStorage.setItem('bestMole', bestScore);
@@ -139,6 +146,8 @@ function endGame() {
   clearInterval(countdownTimer);
   clearTimeout(spawnTimeout);
   holes.forEach(h => lowerMole(h));
+  if (window.SFX) SFX.play('timeUp');
+  if (navigator.vibrate) navigator.vibrate([60, 30, 60]);
 
   document.getElementById('overlay-title').textContent = 'ГОТОВО!';
   document.getElementById('overlay-score').textContent =
@@ -148,4 +157,4 @@ function endGame() {
 }
 
 buildGrid();
-document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });

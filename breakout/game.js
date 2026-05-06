@@ -79,6 +79,8 @@ function loseLife() {
   if (lives <= 0) {
     endGame();
   } else {
+    if (window.SFX) SFX.play('loseLife');
+    if (navigator.vibrate) navigator.vibrate([80, 40, 80]);
     paddle.x = CW / 2 - PAD_W / 2;
     launchBall();
   }
@@ -87,6 +89,8 @@ function loseLife() {
 function endGame() {
   gameOver = true;
   cancelAnimationFrame(animId);
+  if (window.SFX) SFX.play('gameOver');
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
   document.getElementById('overlay-title').textContent = 'GAME OVER';
   document.getElementById('overlay-score').textContent = `СЧЁТ: ${score}`;
   document.getElementById('start-btn').textContent = '[ ЗАНОВО ]';
@@ -132,6 +136,8 @@ function update(dt) {
     const norm = Math.sqrt(ball.vx * ball.vx + ball.spd * ball.spd);
     ball.vx = (ball.vx / norm) * ball.spd;
     ball.vy = -Math.abs(Math.sqrt(ball.spd * ball.spd - ball.vx * ball.vx));
+    if (window.SFX) SFX.play('paddle');
+    if (navigator.vibrate) navigator.vibrate(12);
   }
 
   // Block collisions
@@ -145,6 +151,8 @@ function update(dt) {
     ) {
       b.alive = false;
       score += 10;
+      if (window.SFX) SFX.play('block');
+      if (navigator.vibrate) navigator.vibrate(18);
       const overlapL = ball.x + BALL_R - b.x;
       const overlapR = b.x + BW - (ball.x - BALL_R);
       const overlapT = ball.y + BALL_R - b.y;
@@ -159,7 +167,7 @@ function update(dt) {
     }
   }
 
-  if (blocks.every(b => !b.alive)) nextLevel();
+  if (blocks.every(b => !b.alive)) { if (window.SFX) SFX.play('levelUp'); if (window.Achievements) Achievements.unlock('breakout_levelup'); nextLevel(); }
 }
 
 function draw() {
@@ -242,7 +250,7 @@ document.addEventListener('touchmove', e => {
   if (e.touches.length) paddle.x = screenToPaddleX(e.touches[0].clientX);
 }, { passive: true });
 
-document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 function holdPaddle(id, dir) {

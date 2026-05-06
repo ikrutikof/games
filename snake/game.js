@@ -66,6 +66,12 @@ function tick() {
     score += 10;
     tickMs = Math.max(80, 150 - Math.floor(score / 50) * 5);
     spawnFood();
+    if (window.SFX) SFX.play('eat');
+    if (navigator.vibrate) navigator.vibrate(20);
+    if (window.Achievements) {
+      if (score >= 100) Achievements.unlock('snake_eat10');
+      if (snake.length >= 30) Achievements.unlock('snake_length30');
+    }
   } else {
     snake.pop();
   }
@@ -75,6 +81,8 @@ function tick() {
 function endGame() {
   gameOver = true;
   cancelAnimationFrame(animId);
+  if (window.SFX) SFX.play('die');
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
   document.getElementById('overlay-title').textContent = 'GAME OVER';
   document.getElementById('overlay-score').textContent = `СЧЁТ: ${score}`;
   document.getElementById('start-btn').textContent = '[ ЗАНОВО ]';
@@ -179,7 +187,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'p' || e.key === 'P') togglePause();
 });
 
-document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('start-btn').addEventListener('click', () => { if (window.SFX) SFX.play('start'); startGame(); });
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 
 function addDirBtn(id, d) {
