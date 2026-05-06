@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ARCADE // CYBERPUNK</title>
@@ -59,6 +60,7 @@
 
     <div class="footer">// БОЛЬШЕ ИГР СКОРО //</div>
   </div>
+<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
 <script src="/shared/arcade.js"></script>
 </body>
 </html>

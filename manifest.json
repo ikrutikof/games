@@ -1,0 +1,15 @@
+{
+  "name": "ARCADE // CYBERPUNK",
+  "short_name": "ARCADE",
+  "description": "Киберпанк аркадные игры — Тетрис, Змейка, Арканоид, 2048, Шлёп и другие",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050510",
+  "theme_color": "#00f5ff",
+  "lang": "ru",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ],
+  "categories": ["games", "entertainment"]
+}
