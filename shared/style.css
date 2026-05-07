@@ -97,6 +97,8 @@ h1 {
   align-items: center;
   gap: 16px;
   padding: 20px 20px max(40px, env(safe-area-inset-bottom, 20px));
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .game-area {
@@ -196,6 +198,33 @@ canvas#board {
 
 @media (max-width: 520px) {
   .mobile-controls { display: flex; }
+
+  /* Stack game layout vertically on mobile */
+  .game-area {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Sidebar goes horizontal below the canvas */
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: unset;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .sidebar .panel {
+    flex: 1 0 70px;
+    min-width: 70px;
+    max-width: 110px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sidebar .btn { width: 100%; }
 }
 
 /* ── Achievement toast ──────────────────────────────────────── */

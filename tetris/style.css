@@ -15,5 +15,18 @@ canvas#next  { display: block; }
 .ctrl-btn.wide { width: 112px; }
 
 @media (max-width: 520px) {
-  .sidebar { min-width: 90px; }
+  .sidebar { min-width: unset; }
+  .sidebar canvas#next { width: 70px; height: 58px; }
+}
+
+/* Canvas is 300px wide — fits most phones; scale only on very narrow screens */
+@media (max-width: 340px) {
+  .board-wrap {
+    width: calc(100vw - 40px);
+    max-width: 300px;
+  }
+  canvas#board {
+    width: 100%;
+    height: calc((100vw - 40px) * 2);
+  }
 }

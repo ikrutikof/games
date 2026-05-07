@@ -7,3 +7,17 @@ h1 { font-size: clamp(1rem, 4vw, 1.8rem); }
 .overlay   { gap: 14px; background: rgba(5,5,16,0.88); }
 
 .ctrl-btn { font-size: 1.4rem; width: 70px; height: 70px; }
+
+/* Scale canvas to fit narrow screens (canvas is 400×560 px) */
+@media (max-width: 450px) {
+  .board-wrap {
+    /* shrink the entire board including overlay */
+    width: calc(100vw - 40px);
+    max-width: 400px;
+  }
+  canvas#board {
+    width: 100%;
+    height: calc((100vw - 40px) * 560 / 400);
+    max-height: calc(400px * 560 / 400);
+  }
+}
