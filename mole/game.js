@@ -148,6 +148,7 @@ function endGame() {
   holes.forEach(h => lowerMole(h));
   if (window.SFX) SFX.play('timeUp');
   if (navigator.vibrate) navigator.vibrate([60, 30, 60]);
+  if (window.LB && score > 0) LB.submit('mole', score);
 
   document.getElementById('overlay-title').textContent = 'ГОТОВО!';
   document.getElementById('overlay-score').textContent =

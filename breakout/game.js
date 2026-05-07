@@ -91,6 +91,7 @@ function endGame() {
   cancelAnimationFrame(animId);
   if (window.SFX) SFX.play('gameOver');
   if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+  if (window.LB && score > 0) LB.submit('breakout', score);
   document.getElementById('overlay-title').textContent = 'GAME OVER';
   document.getElementById('overlay-score').textContent = `СЧЁТ: ${score}`;
   document.getElementById('start-btn').textContent = '[ ЗАНОВО ]';

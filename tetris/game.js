@@ -221,6 +221,7 @@ function endGame() {
   cancelAnimationFrame(animId);
   if (window.SFX) SFX.play('gameOver');
   if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+  if (window.LB && score > 0) LB.submit('tetris', score);
   const ov = document.getElementById('overlay');
   document.getElementById('overlay-title').textContent = 'ИГРА ОКОНЧЕНА';
   document.getElementById('start-btn').textContent = '[ ЗАНОВО ]';

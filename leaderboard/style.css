@@ -1,0 +1,80 @@
+.container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 20px 16px 60px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.lb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.lb-tab {
+  background: transparent;
+  border: 1px solid rgba(0,245,255,0.2);
+  color: #555a8a;
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lb-tab:hover  { border-color: var(--cyan); color: var(--cyan); }
+.lb-tab.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,245,255,0.07); box-shadow: 0 0 12px rgba(0,245,255,0.15); }
+
+/* Table */
+.lb-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.lb-table thead th {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: #555a8a;
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,245,255,0.12);
+}
+.lb-table tbody tr {
+  border-bottom: 1px solid rgba(0,245,255,0.06);
+  transition: background 0.15s;
+}
+.lb-table tbody tr:hover { background: rgba(0,245,255,0.04); }
+.lb-table td {
+  padding: 10px 12px;
+  color: rgba(0,245,255,0.7);
+}
+.lb-table td.rank  { font-family: 'Russo One', sans-serif; width: 36px; color: #555a8a; }
+.lb-table td.nick  { font-weight: 600; color: var(--cyan); }
+.lb-table td.score { font-family: 'Russo One', sans-serif; color: var(--yellow); text-align: right; }
+.lb-table td.date  { font-size: 0.65rem; color: #555a8a; text-align: right; }
+
+.lb-table tr.gold   td.rank { color: var(--yellow); font-size: 1.1rem; }
+.lb-table tr.silver td.rank { color: #aaaacc; font-size: 1rem; }
+.lb-table tr.bronze td.rank { color: #ff9500; font-size: 1rem; }
+.lb-table tr.gold   td.nick { color: var(--yellow); text-shadow: 0 0 10px rgba(245,230,66,0.4); }
+
+.lb-loading, .lb-empty {
+  text-align: center;
+  padding: 32px;
+  color: #555a8a;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+.lb-err { color: var(--magenta); }

@@ -117,6 +117,7 @@ function move(dir) {
     if (window.SFX) SFX.play('reach2048');
     if (navigator.vibrate) navigator.vibrate([50, 30, 50, 30, 100]);
     if (window.Achievements) Achievements.unlock('game2048_win');
+    if (window.LB && score > 0) LB.submit('2048', score);
     showOverlay('ТЫ ВЫИГРАЛ!', score, true);
     return;
   }
@@ -124,6 +125,7 @@ function move(dir) {
   if (isGameOver()) {
     if (window.SFX) SFX.play('gameOver');
     if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    if (window.LB && score > 0) LB.submit('2048', score);
     showOverlay('GAME OVER', score, false);
   }
 }

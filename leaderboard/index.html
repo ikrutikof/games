@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LEADERBOARD // ARCADE</title>
+  <link rel="stylesheet" href="/shared/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-bar">
+      <a class="nav-btn" href="/">[ ← КАТАЛОГ ]</a>
+      <span class="nav-title">// РЕЙТИНГ //</span>
+    </nav>
+
+    <div class="lb-tabs" id="tabs"></div>
+
+    <div class="lb-table-wrap">
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>ИГРОК</th>
+            <th>СЧЁТ</th>
+            <th>ДАТА</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body">
+          <tr><td colspan="4" class="lb-loading">ЗАГРУЗКА...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const GAMES = [
+      { id: 'snake',     label: 'ЗМЕЙКА' },
+      { id: 'tetris',    label: 'ТЕТРИС' },
+      { id: 'breakout',  label: 'АРКАНОИД' },
+      { id: '2048',      label: '2048' },
+      { id: 'mole',      label: 'ШЛЁП' },
+    ];
+
+    let activeGame = GAMES[0].id;
+
+    const tabsEl = document.getElementById('tabs');
+    const bodyEl = document.getElementById('lb-body');
+
+    GAMES.forEach(g => {
+      const btn = document.createElement('button');
+      btn.className = 'lb-tab' + (g.id === activeGame ? ' active' : '');
+      btn.textContent = g.label;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.lb-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeGame = g.id;
+        loadScores(g.id);
+      });
+      tabsEl.appendChild(btn);
+    });
+
+    async function loadScores(game) {
+      bodyEl.innerHTML = '<tr><td colspan="4" class="lb-loading">ЗАГРУЗКА...</td></tr>';
+      try {
+        const res  = await fetch(`/api/scores/${game}`);
+        const data = await res.json();
+        if (!data.length) {
+          bodyEl.innerHTML = '<tr><td colspan="4" class="lb-empty">// РЕКОРДОВ ПОКА НЕТ //</td></tr>';
+          return;
+        }
+        bodyEl.innerHTML = data.map((row, i) => {
+          const medal = i === 0 ? '◈' : i === 1 ? '▲' : i === 2 ? '▼' : '';
+          const d = new Date(row.ts);
+          const date = `${d.getDate().toString().padStart(2,'0')}.${(d.getMonth()+1).toString().padStart(2,'0')}`;
+          const cls  = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+          return `<tr class="${cls}">
+            <td class="rank">${medal || (i + 1)}</td>
+            <td class="nick">${escHtml(row.nick)}</td>
+            <td class="score">${row.score}</td>
+            <td class="date">${date}</td>
+          </tr>`;
+        }).join('');
+      } catch {
+        bodyEl.innerHTML = '<tr><td colspan="4" class="lb-empty lb-err">// СЕРВЕР НЕДОСТУПЕН //</td></tr>';
+      }
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    loadScores(activeGame);
+  </script>
+  <script src="/shared/arcade.js"></script>
+</body>
+</html>
