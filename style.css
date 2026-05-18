@@ -204,3 +204,7 @@ h1 { font-size: clamp(1.6rem, 6vw, 3rem); }
   caret-color: var(--cyan);
 }
 .term-input::placeholder { color: #333; }
+
+@media (max-width: 500px) {
+  .term-output { max-height: 120px; }
+}

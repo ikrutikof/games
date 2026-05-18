@@ -78,3 +78,8 @@
   letter-spacing: 0.15em;
 }
 .lb-err { color: var(--magenta); }
+
+@media (max-width: 360px) {
+  .lb-table { font-size: 0.7rem; }
+  .lb-table td, .lb-table thead th { padding: 6px 8px; }
+}
