@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE = 'arcade-v2';
+const CACHE = 'arcade-v3';
 const PRECACHE = [
   '/',
   '/manifest.json',
