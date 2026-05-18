@@ -1,0 +1,7 @@
+<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
+<% if (typeof pageJs !== 'undefined') { %>
+<script src="<%= pageJs %>"></script>
+<% } %>
+<script src="/shared/arcade.js"></script>
+</body>
+</html>

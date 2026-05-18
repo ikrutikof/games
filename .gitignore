@@ -1,0 +1,4 @@
+node_modules/
+db/arcade.db
+db/arcade.db-shm
+db/arcade.db-wal

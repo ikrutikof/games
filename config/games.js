@@ -1,0 +1,58 @@
+'use strict';
+
+module.exports = [
+  {
+    id:    'tictactoe',
+    title: 'Крестики-нолики',
+    desc:  '3×3 и 5×5 // vs AI',
+    icon:  '✕ ○',
+    path:  '/tictactoe/',
+    badge: 'NEW',
+    leaderboard: false,
+  },
+  {
+    id:    'tetris',
+    title: 'Тетрис',
+    desc:  '10 уровней // классика',
+    icon:  '▬ ▮',
+    path:  '/tetris/',
+    badge: 'NEW',
+    leaderboard: true,
+  },
+  {
+    id:    'snake',
+    title: 'Змейка',
+    desc:  'классика // ешь и расти',
+    icon:  '〜 ●',
+    path:  '/snake/',
+    badge: 'NEW',
+    leaderboard: true,
+  },
+  {
+    id:    'breakout',
+    title: 'Арканоид',
+    desc:  'разбей все блоки',
+    icon:  '🧱',
+    path:  '/breakout/',
+    badge: 'NEW',
+    leaderboard: true,
+  },
+  {
+    id:    '2048',
+    title: '2048',
+    desc:  'складывай плитки // до 2048',
+    icon:  '🟦',
+    path:  '/2048/',
+    badge: 'NEW',
+    leaderboard: true,
+  },
+  {
+    id:    'mole',
+    title: 'Шлёп',
+    desc:  'мутанты // тапай быстрее',
+    icon:  '◈ ✦',
+    path:  '/mole/',
+    badge: 'NEW',
+    leaderboard: true,
+  },
+];

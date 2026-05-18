@@ -1,0 +1,42 @@
+<%- include('partials/head', { title, pageCss: '/style.css' }) %>
+
+<canvas id="particles"></canvas>
+<div class="container">
+  <h1>// ARCADE //</h1>
+  <p class="subtitle">выбери игру</p>
+  <div class="live-indicator">
+    <div class="live-dot"></div>
+    <span><span class="live-count">—</span>&nbsp;онлайн</span>
+  </div>
+
+  <div class="games-grid">
+    <% games.forEach(game => { %>
+    <a class="game-card" href="<%= game.path %>">
+      <div class="game-icon"><%- game.icon %></div>
+      <div class="game-title"><%= game.title %></div>
+      <div class="game-desc"><%= game.desc %></div>
+      <% if (game.badge) { %><span class="badge-new"><%= game.badge %></span><% } %>
+    </a>
+    <% }) %>
+  </div>
+
+  <div class="catalog-footer">
+    <a class="btn" href="/profile">[ ПРОФИЛЬ ]</a>
+    <a class="btn" href="/leaderboard">[ РЕЙТИНГ ]</a>
+    <div class="footer">// БОЛЬШЕ ИГР СКОРО //</div>
+  </div>
+
+  <div class="terminal" id="terminal">
+    <div class="term-header">
+      <span class="term-title">// TERMINAL //</span>
+      <span class="term-hint">введи &quot;help&quot;</span>
+    </div>
+    <div class="term-output" id="term-output"></div>
+    <div class="term-input-row">
+      <span class="term-prompt">arcade@coldline:~$</span>
+      <input class="term-input" id="term-input" type="text" autocomplete="off" spellcheck="false" placeholder="команда...">
+    </div>
+  </div>
+</div>
+
+<%- include('partials/foot') %>

@@ -1,0 +1,28 @@
+<%- include('partials/head', { title, pageCss: '/profile/style.css' }) %>
+
+<div class="wrapper">
+  <div class="nav-bar">
+    <a class="btn" href="/">← АРКАДА</a>
+    <span class="nav-breadcrumb">// ARCADE // ПРОФИЛЬ</span>
+  </div>
+
+  <h1>// ПРОФИЛЬ //</h1>
+
+  <div class="nick-section">
+    <div class="nick-label">ВАШ НИК</div>
+    <div class="nick-row">
+      <input class="nick-input" id="nickInput" type="text" maxlength="16" placeholder="ВВЕДИТЕ НИК" autocomplete="off" spellcheck="false" />
+      <button class="btn" id="nickSave">[ OK ]</button>
+    </div>
+  </div>
+
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <div class="section-title">// АЧИВКИ //</div>
+  <div class="ach-grid" id="achGrid"></div>
+
+  <div class="footer">// ДАННЫЕ ХРАНЯТСЯ ЛОКАЛЬНО //</div>
+</div>
+
+<script src="/shared/achievements.js"></script>
+<%- include('partials/foot', { pageJs: '/profile/profile.js' }) %>
