@@ -133,7 +133,17 @@ h1 { font-size: clamp(1.4rem, 5vw, 2.4rem); }
   padding: 0 20px;
 }
 
+@media (max-width: 520px) {
+  h1      { display: none; }
+  .footer { display: none; }
+  .wrapper { gap: 10px; }
+}
+
 @media (max-width: 400px) {
-  .mole-grid { gap: 10px; padding: 12px; }
-  .hud { gap: 10px; }
+  .mole-grid { gap: 8px; padding: 10px; }
+  .hole {
+    width:  clamp(70px, 22vw, 88px);
+    height: clamp(70px, 22vw, 88px);
+  }
+  .hud { gap: 8px; }
 }

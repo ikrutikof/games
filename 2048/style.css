@@ -95,6 +95,11 @@ h1 { font-size: clamp(1.6rem, 8vw, 2.4rem); }
   text-transform: uppercase;
 }
 
+@media (max-width: 520px) {
+  h1 { display: none; }
+  .wrapper { gap: 14px; padding-top: 14px; }
+}
+
 @media (max-width: 440px) {
   .grid {
     --cell: 70px;
