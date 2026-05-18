@@ -15,9 +15,9 @@ h1 { font-size: clamp(1rem, 4vw, 1.8rem); }
 
   .ctrl-btn { width: 60px; height: 60px; font-size: 1.2rem; }
 
-  /* Scale canvas to fit: 400×560, ratio width/height = 400/560 ≈ 0.714 */
+  /* dvh excludes browser chrome — prevents bottom button cutoff */
   canvas#board {
-    height: min(52vh, 560px);
-    width:  calc(min(52vh, 560px) * 400 / 560);
+    height: min(52dvh, 560px);
+    width:  calc(min(52dvh, 560px) * 400 / 560);
   }
 }

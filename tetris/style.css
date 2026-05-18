@@ -27,9 +27,9 @@ canvas#next  { display: block; }
   .sidebar { min-width: unset; }
   .sidebar canvas#next { width: 60px; height: 50px; }
 
-  /* Scale canvas to fit: height drives width (ratio 1:2) */
+  /* dvh excludes browser chrome — prevents bottom button cutoff */
   canvas#board {
-    height: min(50vh, 600px);
-    width:  calc(min(50vh, 600px) * 0.5);
+    height: min(50dvh, 600px);
+    width:  calc(min(50dvh, 600px) * 0.5);
   }
 }

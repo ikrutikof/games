@@ -197,6 +197,9 @@ canvas#board {
 .ctrl-btn:active { background: rgba(0,245,255,0.2); }
 
 @media (max-width: 520px) {
+  /* Start from top so nav-bar aligns with corner decorations */
+  body { justify-content: flex-start; }
+
   .mobile-controls { display: flex; }
 
   /* Stack game layout vertically on mobile */
