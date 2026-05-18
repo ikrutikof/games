@@ -14,72 +14,31 @@ h1 { font-size: clamp(1rem, 4vw, 1.8rem); }
 @media (max-width: 520px) {
   h1, .footer { display: none; }
 
-  .wrapper {
-    gap: 10px;
-    padding: 12px 12px max(12px, env(safe-area-inset-bottom, 12px));
-  }
+  .wrapper   { gap: 8px; padding: 12px 12px max(12px, env(safe-area-inset-bottom, 12px)); }
+  .game-area { gap: 8px; }
 
-  /* Grid: board-wrap and sidebar share the same cell so sidebar overlays canvas */
-  .game-area {
-    display: grid;
-    grid-template-columns: min(calc(100vw - 24px), calc(100dvh - 260px));
-    grid-template-rows:    min(calc(100vw - 24px), calc(100dvh - 260px));
-    gap: 0;
-    width: auto;
-  }
-
-  .board-wrap { grid-area: 1 / 1; }
-
+  /* Square canvas: remaining vertical space after nav + sidebar + dpad + paddings */
   canvas#board {
-    display: block;
-    width:  min(calc(100vw - 24px), calc(100dvh - 260px));
-    height: min(calc(100vw - 24px), calc(100dvh - 260px));
+    width:  min(calc(100vw - 24px), calc(100dvh - 286px));
+    height: min(calc(100vw - 24px), calc(100dvh - 286px));
   }
 
-  /* Sidebar: semi-transparent HUD strip at top of canvas */
-  .sidebar {
-    grid-area: 1 / 1;
-    align-self: start;
-    z-index: 5;
-    pointer-events: none;
-    flex-direction: row;
-    min-width: unset;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    background: rgba(5, 5, 16, 0.82);
-    backdrop-filter: blur(4px);
-    border-bottom: 1px solid rgba(0, 245, 255, 0.15);
-    padding: 5px 10px;
-  }
-
+  /* Compact stats row below canvas */
   .sidebar .panel {
-    flex: 1;
-    min-width: 0;
+    flex: 1 0 60px;
+    min-width: 60px;
     max-width: none;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 2px 4px;
+    padding: 3px 6px;
     gap: 0;
-    align-items: center;
-    text-align: center;
   }
-
-  .sidebar .panel-val   { font-size: 0.85rem; }
-  .sidebar .panel-label { font-size: 0.4rem; }
-
-  /* Pause button inside HUD: small, stays clickable */
+  .sidebar .panel-val   { font-size: 0.9rem; }
+  .sidebar .panel-label { font-size: 0.42rem; }
   .sidebar .btn {
-    pointer-events: auto;
-    flex: 0 0 auto;
     width: auto !important;
+    flex: 0 0 auto;
     padding: 4px 10px;
     font-size: 0.48rem;
-    letter-spacing: 0.1em;
   }
 
-  /* D-pad: 56px for comfortable thumb tap */
-  .ctrl-btn { width: 56px; height: 56px; font-size: 1.3rem; }
+  .ctrl-btn { width: 52px; height: 52px; font-size: 1.2rem; }
 }
