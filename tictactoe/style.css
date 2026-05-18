@@ -143,13 +143,38 @@ h1 { font-size: clamp(1.4rem, 5vw, 2.6rem); }
 
 @media (max-width: 520px) {
   h1 { display: none; }
-  .container { gap: 10px; padding-top: 12px; }
-  .score { gap: 16px; }
-  .score-val { font-size: 1.2rem; }
-  .status { font-size: 0.8rem; }
-  .board.size-5 .cell {
-    width: clamp(44px, 14vw, 82px);
-    height: clamp(44px, 14vw, 82px);
-    font-size: clamp(1rem, 4vw, 2rem);
+  .footer { display: none; }
+
+  .container {
+    gap: 8px;
+    padding: 10px 12px max(10px, env(safe-area-inset-bottom, 10px));
   }
+
+  .controls { gap: 6px; }
+  .btn-row  { gap: 6px; }
+  .ctrl-btn { padding: 5px 10px; font-size: 0.58rem; letter-spacing: 0.1em; }
+
+  .score      { gap: 14px; }
+  .score-val  { font-size: 1.1rem; }
+  .score-label { font-size: 0.52rem; }
+
+  .status { font-size: 0.72rem; min-height: 1.1em; }
+
+  .btn { padding: 7px 20px; font-size: 0.65rem; }
+
+  /* Board takes remaining vertical space */
+  .board {
+    width: min(90vw, calc(100dvh - 290px));
+    aspect-ratio: 1;
+  }
+
+  /* Cells fill grid auto — no fixed px */
+  .board.size-3 .cell,
+  .board.size-5 .cell {
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .board.size-3 .cell { font-size: clamp(1.6rem, 7vw, 3rem); }
+  .board.size-5 .cell { font-size: clamp(0.9rem, 4vw, 2rem); }
 }
