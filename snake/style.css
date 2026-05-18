@@ -12,16 +12,74 @@ h1 { font-size: clamp(1rem, 4vw, 1.8rem); }
 .ctrl-row-h { display: flex; gap: 4px; }
 
 @media (max-width: 520px) {
-  h1      { display: none; }
-  .footer { display: none; }
+  h1, .footer { display: none; }
 
-  .wrapper { gap: 10px; padding: 12px 12px max(16px, env(safe-area-inset-bottom, 16px)); }
-
-  /* Square canvas: remaining height after nav + sidebar + dpad + padding */
-  canvas#board {
-    width:  min(90vw, calc(100dvh - 300px));
-    height: min(90vw, calc(100dvh - 300px));
+  .wrapper {
+    gap: 10px;
+    padding: 12px 12px max(12px, env(safe-area-inset-bottom, 12px));
   }
 
-  .ctrl-btn { width: 44px; height: 44px; font-size: 1.1rem; }
+  /* Grid: board-wrap and sidebar share the same cell so sidebar overlays canvas */
+  .game-area {
+    display: grid;
+    grid-template-columns: min(calc(100vw - 24px), calc(100dvh - 260px));
+    grid-template-rows:    min(calc(100vw - 24px), calc(100dvh - 260px));
+    gap: 0;
+    width: auto;
+  }
+
+  .board-wrap { grid-area: 1 / 1; }
+
+  canvas#board {
+    display: block;
+    width:  min(calc(100vw - 24px), calc(100dvh - 260px));
+    height: min(calc(100vw - 24px), calc(100dvh - 260px));
+  }
+
+  /* Sidebar: semi-transparent HUD strip at top of canvas */
+  .sidebar {
+    grid-area: 1 / 1;
+    align-self: start;
+    z-index: 5;
+    pointer-events: none;
+    flex-direction: row;
+    min-width: unset;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    background: rgba(5, 5, 16, 0.82);
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid rgba(0, 245, 255, 0.15);
+    padding: 5px 10px;
+  }
+
+  .sidebar .panel {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2px 4px;
+    gap: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sidebar .panel-val   { font-size: 0.85rem; }
+  .sidebar .panel-label { font-size: 0.4rem; }
+
+  /* Pause button inside HUD: small, stays clickable */
+  .sidebar .btn {
+    pointer-events: auto;
+    flex: 0 0 auto;
+    width: auto !important;
+    padding: 4px 10px;
+    font-size: 0.48rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* D-pad: 56px for comfortable thumb tap */
+  .ctrl-btn { width: 56px; height: 56px; font-size: 1.3rem; }
 }
